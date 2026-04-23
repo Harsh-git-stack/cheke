@@ -3,1138 +3,2848 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogesh Cheke | Premium Insurance Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <meta name="description" content="Yogesh Bhagvat Cheke offers LIC life insurance and Star Health insurance guidance for families, professionals, and business owners.">
+    <title>Yogesh Cheke | LIC & Star Health Insurance Advisor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/scrollreveal"></script>
-    
+
     <style>
         :root {
-            --primary: #00529b;
-            --secondary: #ffcc00;
-            --bg-dark: #070a0f;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --text-light: #ffffff;
-            --glass: rgba(255, 255, 255, 0.05);
-            --success: #27ae60;
-            --error: #e74c3c;
+            --ink: #08140f;
+            --forest: #0f3d2e;
+            --forest-2: #14543e;
+            --mint: #dff6e9;
+            --cream: #eef6f1;
+            --paper: #f5fbf8;
+            --gold: #d8a833;
+            --teal: #1d8a89;
+            --clay: #b9673a;
+            --rose: #f1d3c7;
+            --sky: #d9edf7;
+            --white: #ffffff;
+            --muted: #64736d;
+            --line: rgba(8, 20, 15, 0.12);
+            --shadow: 0 24px 70px rgba(8, 20, 15, 0.16);
+            --radius: 8px;
+            --nav-height: 82px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: "Manrope", Arial, sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--bg-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
-        .loading-content {
-            text-align: center;
-            color: var(--secondary);
-        }
-        .loading-spinner {
-            width: 60px; height: 60px;
-            border: 4px solid rgba(255,204,0,0.1);
-            border-top: 4px solid var(--secondary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        canvas#particle-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 8%;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(7, 10, 15, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            padding: 0.8rem 8%;
-            background: rgba(7, 10, 15, 0.95);
-        }
-
-        .logo { font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
-        .logo:hover { transform: scale(1.05); }
-        .logo span { color: var(--secondary); }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin-left: 2.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            transition: 0.3s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-links a:hover { color: var(--secondary); }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 50px; height: 50px;
-            background: var(--secondary);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-        }
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .back-to-top:hover { transform: translateY(-3px); }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 8%;
-            position: relative;
+        body.nav-open {
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 30% 40%, rgba(0, 82, 155, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(255, 204, 0, 0.1) 0%, transparent 50%);
-            z-index: 1;
+        img {
+            display: block;
+            max-width: 100%;
         }
 
-        .hero-content { z-index: 2; max-width: 800px; }
-        .hero-content h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(3rem, 6vw, 5.5rem); 
-            line-height: 1.05; 
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease-out 0.5s forwards;
+        a {
+            color: inherit;
         }
-        .hero-content h1 span { 
-            color: var(--secondary); 
-            font-style: italic; 
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        section {
+            padding: 110px 7%;
             position: relative;
         }
-        .hero-content h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--secondary);
-            transform: scaleX(0);
-            animation: underline 1s ease-out 1.5s forwards;
+
+        .section-shell {
+            max-width: 1180px;
+            margin: 0 auto;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        .section-kicker {
+            color: var(--clay);
+            display: inline-flex;
+            font-size: 0.78rem;
+            font-weight: 800;
+            gap: 0.55rem;
+            letter-spacing: 0.18em;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(2.2rem, 5vw, 4.5rem);
+            line-height: 1.02;
+            max-width: 760px;
+        }
+
+        .section-title i,
+        .eyebrow i {
+            color: var(--clay);
+        }
+
+        .section-copy {
+            color: var(--muted);
+            font-size: 1.02rem;
+            margin-top: 1.1rem;
+            max-width: 650px;
+        }
+
+        .section-heading {
+            align-items: end;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            margin-bottom: 3rem;
+        }
+
+        .icon-button {
+            align-items: center;
+            background: transparent;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            color: inherit;
+            display: inline-flex;
+            height: 46px;
+            justify-content: center;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            width: 46px;
+        }
+
+        .icon-button:hover {
+            background: var(--mint);
+            border-color: rgba(15, 61, 46, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .primary-button,
+        .secondary-button,
+        .text-button {
+            align-items: center;
+            border-radius: 999px;
+            display: inline-flex;
+            font-weight: 800;
+            gap: 0.65rem;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0.85rem 1.3rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .primary-button {
+            background: var(--gold);
+            border: 0;
+            color: var(--ink);
+            box-shadow: 0 16px 34px rgba(216, 168, 51, 0.34);
+        }
+
+        .primary-button:hover {
+            box-shadow: 0 20px 42px rgba(216, 168, 51, 0.42);
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            color: var(--white);
+        }
+
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .text-button {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--forest);
+        }
+
+        .text-button:hover {
+            background: var(--mint);
+            transform: translateY(-2px);
+        }
+
+        .loading-screen {
+            align-items: center;
+            background: var(--forest);
+            color: var(--cream);
+            display: flex;
+            inset: 0;
+            justify-content: center;
+            position: fixed;
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+            z-index: 9999;
+        }
+
+        .loading-screen.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .loading-mark {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .loading-mark i {
+            align-items: center;
+            animation: pulseMark 1.4s ease-in-out infinite;
+            background: var(--gold);
+            border-radius: 50%;
+            color: var(--ink);
+            display: inline-flex;
+            font-size: 1.55rem;
+            height: 64px;
+            justify-content: center;
+            width: 64px;
+        }
+
+        .loading-mark strong {
+            font-size: 1.2rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        @keyframes pulseMark {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.08);
             }
         }
 
-        @keyframes underline {
-            to { transform: scaleX(1); }
+        .site-nav {
+            align-items: center;
+            background: rgba(245, 251, 248, 0.84);
+            border-bottom: 1px solid rgba(8, 20, 15, 0.08);
+            display: flex;
+            height: var(--nav-height);
+            justify-content: space-between;
+            left: 0;
+            padding: 0 7%;
+            position: fixed;
+            top: 0;
+            transition: background 0.25s ease, box-shadow 0.25s ease, height 0.25s ease;
+            width: 100%;
+            z-index: 1000;
         }
 
-        .hero-content p {
-            font-size: 1.2rem; 
-            color: #888; 
-            max-width: 600px; 
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease-out 1s forwards;
+        .site-nav.scrolled {
+            background: rgba(245, 251, 248, 0.96);
+            box-shadow: 0 14px 40px rgba(8, 20, 15, 0.08);
+            height: 70px;
+        }
+
+        .brand {
+            align-items: center;
+            display: inline-flex;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            align-items: center;
+            background: var(--forest);
+            border-radius: 50%;
+            color: var(--gold);
+            display: inline-flex;
+            font-weight: 900;
+            height: 46px;
+            justify-content: center;
+            width: 46px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.05;
+        }
+
+        .brand-text strong {
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-text span {
+            color: var(--muted);
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            align-items: center;
+            display: flex;
+            gap: 1.55rem;
+        }
+
+        .nav-links a {
+            color: var(--forest);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 0.09em;
+            position: relative;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            background: var(--clay);
+            bottom: -0.35rem;
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s ease;
+            width: 100%;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-actions {
+            align-items: center;
+            display: flex;
+            gap: 0.7rem;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .hero {
+            align-items: center;
+            background:
+                linear-gradient(90deg, rgba(8, 20, 15, 0.86) 0%, rgba(8, 20, 15, 0.68) 48%, rgba(8, 20, 15, 0.3) 100%),
+                url("https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1800&q=80") center right / cover;
+            color: var(--white);
+            display: flex;
+            min-height: 96vh;
+            overflow: hidden;
+            padding-top: calc(var(--nav-height) + 70px);
+        }
+
+        .hero::after {
+            background: linear-gradient(180deg, transparent, rgba(245, 251, 248, 0.86));
+            bottom: -1px;
+            content: "";
+            height: 120px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        .hero-canvas {
+            height: 100%;
+            inset: 0;
+            opacity: 0.28;
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 770px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            align-items: center;
+            color: var(--gold);
+            display: inline-flex;
+            font-size: 0.82rem;
+            font-weight: 900;
+            gap: 0.7rem;
+            letter-spacing: 0.18em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(3.3rem, 8vw, 7.35rem);
+            letter-spacing: 0;
+            line-height: 0.96;
+            max-width: 900px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            display: block;
+            font-style: italic;
+        }
+
+        .hero-lede {
+            color: rgba(255, 255, 255, 0.78);
+            font-size: clamp(1rem, 2vw, 1.24rem);
+            margin: 1.7rem 0 2rem;
+            max-width: 640px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease-out 1.2s forwards;
-        }
-        .stat-item {
-            text-align: center;
-            transition: 0.3s ease;
-        }
-        .stat-item:hover {
-            transform: translateY(-5px);
-        }
-        .stat-item h3 { 
-            font-size: 1.8rem; 
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-            transition: 0.3s ease;
-        }
-        .stat-item:hover h3 {
-            color: var(--text-light);
-            text-shadow: 0 0 20px var(--secondary);
-        }
-        .stat-item p { 
-            font-size: 0.8rem; 
-            color: #888; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* CTA Button */
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--secondary);
-            color: var(--bg-dark);
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease-out 1.8s forwards;
-        }
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .cta-button:hover::before { left: 100%; }
-        .cta-button:hover { 
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.3);
-        }
-
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            color: white;
-            z-index: 2000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
-
-        /* Testimonials */
-        .testimonials {
-            background: linear-gradient(135deg, rgba(0, 82, 155, 0.05) 0%, rgba(255, 204, 0, 0.05) 100%);
-            padding: 120px 8%;
-        }
-        .testimonials h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        .testimonials-grid {
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        .testimonial-card {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-            transition: 0.4s ease;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--secondary);
-            background: rgba(255,255,255,0.06);
-        }
-        .testimonial-card .quote {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-        .testimonial-card p {
-            color: #ccc;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--secondary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--bg-dark);
-            font-weight: bold;
-            margin-right: 1rem;
-        }
-        .author-info h4 {
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-        }
-        .author-info span {
-            color: var(--secondary);
-            font-size: 0.8rem;
+            gap: 1.2rem;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            margin-top: 3.2rem;
+            max-width: 760px;
+            padding-top: 1.5rem;
         }
 
-        /* Insurance Calculator */
-        .calculator-section {
-            padding: 120px 8%;
-            background: rgba(255, 204, 0, 0.02);
-        }
-        .calculator-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        .calculator-form {
-            background: var(--glass);
-            padding: 3rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .calc-input-group {
-            margin-bottom: 1.5rem;
-        }
-        .calc-input-group label {
+        .stat-card strong {
+            color: var(--gold);
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--secondary);
+            font-size: clamp(1.55rem, 3vw, 2.25rem);
+            line-height: 1;
         }
-        .calc-input-group input {
+
+        .stat-card span {
+            color: rgba(255, 255, 255, 0.72);
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-top: 0.45rem;
+            text-transform: uppercase;
+        }
+
+        .trust-strip {
+            background: var(--paper);
+            padding: 0 7% 55px;
+        }
+
+        .trust-grid {
+            background: var(--white);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            display: grid;
+            gap: 1px;
+            grid-template-columns: repeat(4, 1fr);
+            margin: -42px auto 0;
+            max-width: 1180px;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+        }
+
+        .trust-item {
+            background: var(--white);
+            padding: 1.4rem;
+        }
+
+        .trust-item i {
+            color: var(--clay);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .trust-item strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .trust-item span {
+            color: var(--muted);
+            display: block;
+            font-size: 0.88rem;
+        }
+
+        .advisor-section {
+            background: linear-gradient(180deg, var(--paper), #edf7ef);
+            padding-top: 70px;
+        }
+
+        .advisor-grid {
+            align-items: center;
+            display: grid;
+            gap: 3rem;
+            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        }
+
+        .portrait-panel {
+            min-height: 620px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portrait-panel img {
+            filter: saturate(0.95) contrast(1.03);
+            height: 100%;
+            min-height: 620px;
+            object-fit: cover;
             width: 100%;
+        }
+
+        .portrait-badge {
+            background: var(--forest);
+            bottom: 1.2rem;
+            color: var(--white);
+            left: 1.2rem;
+            max-width: calc(100% - 2.4rem);
+            padding: 1rem 1.15rem;
+            position: absolute;
+        }
+
+        .portrait-badge strong {
+            color: var(--gold);
+            display: block;
+            font-size: 1.35rem;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .advisor-points {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .advisor-point {
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.62);
+            border: 1px solid var(--line);
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 46px 1fr;
             padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            border-radius: 12px;
-            font-family: inherit;
         }
-        .calc-result {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
+
+        .advisor-point i {
+            align-items: center;
+            background: var(--mint);
+            border-radius: 50%;
+            color: var(--forest);
+            display: inline-flex;
+            height: 46px;
+            justify-content: center;
+            width: 46px;
         }
-        .calc-result h3 {
-            color: var(--secondary);
+
+        .advisor-point h3 {
+            font-size: 1.03rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .advisor-point p {
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .products-section {
+            background: var(--forest);
+            color: var(--white);
+        }
+
+        .products-section .section-copy {
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            display: flex;
+            flex-direction: column;
+            min-height: 370px;
+            overflow: hidden;
+            padding: 1.25rem;
+            position: relative;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .product-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px);
+        }
+
+        .product-card img {
+            aspect-ratio: 1.6 / 1;
+            margin: -1.25rem -1.25rem 1.2rem;
+            object-fit: cover;
+            width: calc(100% + 2.5rem);
+        }
+
+        .product-card i {
+            align-items: center;
+            background: var(--gold);
+            border-radius: 50%;
+            color: var(--ink);
+            display: inline-flex;
+            height: 48px;
+            justify-content: center;
+            margin-bottom: 1rem;
+            width: 48px;
+        }
+
+        .product-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .product-card p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.95rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .product-card ul {
+            list-style: none;
+            margin-top: auto;
+        }
+
+        .product-card li {
+            align-items: center;
+            color: rgba(255, 255, 255, 0.84);
+            display: flex;
+            font-size: 0.92rem;
+            gap: 0.55rem;
+            margin-top: 0.55rem;
+        }
+
+        .product-card li::before {
+            background: var(--gold);
+            border-radius: 50%;
+            content: "";
+            flex: 0 0 7px;
+            height: 7px;
+            width: 7px;
+        }
+
+        .journey-section {
+            background: var(--paper);
+        }
+
+        .journey-track {
+            display: grid;
+            gap: 1.1rem;
+            grid-template-columns: repeat(4, 1fr);
+            margin-top: 2.5rem;
+        }
+
+        .journey-step {
+            background: var(--white);
+            border: 1px solid var(--line);
+            min-height: 245px;
+            padding: 1.4rem;
+            position: relative;
+        }
+
+        .journey-step::before {
+            color: rgba(15, 61, 46, 0.14);
+            content: attr(data-step);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 5rem;
+            line-height: 1;
+            position: absolute;
+            right: 0.95rem;
+            top: 0.45rem;
+        }
+
+        .journey-step i {
+            color: var(--clay);
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-step h3 {
+            font-size: 1.12rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-step p {
+            color: var(--muted);
+            font-size: 0.94rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-section {
+            background: linear-gradient(145deg, #e9f5f0 0%, #f5fbf8 48%, #f5ded5 100%);
+        }
+
+        .quote-studio {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(8, 20, 15, 0.1);
+            box-shadow: var(--shadow);
+            display: grid;
+            gap: 0;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            overflow: hidden;
+        }
+
+        .quote-panel,
+        .quote-results {
+            padding: clamp(1.4rem, 4vw, 2.5rem);
+        }
+
+        .quote-panel {
+            background: var(--forest);
+            color: var(--white);
+        }
+
+        .quote-panel .section-kicker {
+            color: var(--gold);
+        }
+
+        .quote-panel h2 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(2rem, 4vw, 3.35rem);
+            line-height: 1.05;
             margin-bottom: 1rem;
         }
-        .result-amount {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
+
+        .quote-panel p {
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 1.5rem;
         }
-        .result-period {
-            color: #888;
+
+        .quote-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .field-group {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .field-group label {
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.83rem;
+            font-weight: 800;
+        }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: var(--radius);
+            color: var(--white);
+            min-height: 48px;
+            outline: none;
+            padding: 0.8rem 0.95rem;
+            width: 100%;
+        }
+
+        .field-group select option {
+            background: var(--forest);
+            color: var(--white);
+        }
+
+        .field-group input:focus,
+        .field-group select:focus,
+        .field-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(216, 168, 51, 0.16);
+        }
+
+        .range-row {
+            align-items: center;
+            display: grid;
+            gap: 0.9rem;
+            grid-template-columns: 1fr auto;
+        }
+
+        input[type="range"] {
+            accent-color: var(--gold);
+        }
+
+        .quote-results {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .result-hero {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 1.5rem;
+        }
+
+        .result-hero span {
+            color: var(--muted);
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .result-hero strong {
+            color: var(--forest);
+            display: block;
+            font-size: clamp(2.25rem, 5vw, 4.2rem);
+            line-height: 1;
+            margin: 0.45rem 0 0.3rem;
+        }
+
+        .result-hero small {
+            color: var(--muted);
+        }
+
+        .result-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .mini-result {
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 1.1rem;
+        }
+
+        .mini-result span {
+            color: var(--muted);
+            display: block;
+            font-size: 0.79rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .mini-result strong {
+            color: var(--forest);
+            display: block;
+            font-size: 1.35rem;
+            margin-top: 0.25rem;
+        }
+
+        .recommendation {
+            background: #edf7ef;
+            border: 1px solid rgba(15, 61, 46, 0.16);
+            color: var(--forest);
+            padding: 1.1rem;
+        }
+
+        .recommendation h3 {
+            align-items: center;
+            display: flex;
+            gap: 0.6rem;
+            font-size: 1.05rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .recommendation p {
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .comparison-section {
+            background: var(--white);
+        }
+
+        .compare-table {
+            border: 1px solid var(--line);
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            min-width: 820px;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid var(--line);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--forest);
+            color: var(--white);
+            font-size: 0.84rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        td {
+            color: var(--muted);
+        }
+
+        td strong {
+            color: var(--ink);
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .claims-section {
+            background:
+                linear-gradient(90deg, rgba(8, 20, 15, 0.88), rgba(8, 20, 15, 0.72)),
+                url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80") center / cover;
+            color: var(--white);
+        }
+
+        .claims-section .section-copy {
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .claim-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .claim-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            padding: 1.3rem;
+        }
+
+        .claim-card i {
+            color: var(--gold);
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .claim-card h3 {
+            margin-bottom: 0.45rem;
+        }
+
+        .claim-card p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.94rem;
+        }
+
+        .testimonials-section {
+            background: #f3f8fb;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            padding: 1.4rem;
+        }
+
+        .testimonial-card .stars {
+            color: var(--gold);
+            letter-spacing: 0.18rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card blockquote {
+            color: var(--ink);
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .person {
+            align-items: center;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            align-items: center;
+            background: var(--mint);
+            border-radius: 50%;
+            color: var(--forest);
+            display: inline-flex;
+            font-weight: 900;
+            height: 46px;
+            justify-content: center;
+            width: 46px;
+        }
+
+        .person strong,
+        .person span {
+            display: block;
+        }
+
+        .person span {
+            color: var(--muted);
+            font-size: 0.83rem;
+        }
+
+        .faq-section {
+            background: var(--paper);
+        }
+
+        .faq-tools {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: minmax(220px, 1fr) auto;
+            margin-bottom: 1rem;
+        }
+
+        .faq-search {
+            position: relative;
+        }
+
+        .faq-search i {
+            color: var(--muted);
+            left: 1rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .faq-search input {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            min-height: 52px;
+            outline: none;
+            padding: 0.85rem 1rem 0.85rem 2.7rem;
+            width: 100%;
+        }
+
+        .faq-search input:focus {
+            border-color: var(--forest);
+            box-shadow: 0 0 0 4px rgba(15, 61, 46, 0.1);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border: 1px solid var(--line);
+        }
+
+        .faq-question {
+            align-items: center;
+            background: transparent;
+            border: 0;
+            color: var(--ink);
+            display: flex;
+            font-weight: 900;
+            justify-content: space-between;
+            min-height: 68px;
+            padding: 1rem 1.2rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .faq-question i {
+            color: var(--clay);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            color: var(--muted);
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.25s ease;
+        }
+
+        .faq-answer > div {
+            overflow: hidden;
+        }
+
+        .faq-item.active .faq-answer {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-answer p {
+            padding: 0 1.2rem 1.2rem;
+        }
+
+        .contact-section {
+            background:
+                linear-gradient(135deg, rgba(15, 61, 46, 0.96), rgba(8, 20, 15, 0.94)),
+                url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80") center / cover;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 44px 44px;
+            content: "";
+            inset: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .contact-section .section-copy {
+            color: rgba(255, 255, 255, 0.72);
+        }
+
+        .contact-grid {
+            align-items: start;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: minmax(320px, 0.88fr) minmax(0, 1.12fr);
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card,
+        .contact-form {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: clamp(1.25rem, 4vw, 2rem);
+        }
+
+        .contact-card {
+            position: sticky;
+            top: 94px;
+        }
+
+        .advisor-mini {
+            align-items: center;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 64px 1fr;
+        }
+
+        .advisor-avatar {
+            align-items: center;
+            background: var(--gold);
+            border-radius: 50%;
+            color: var(--ink);
+            display: inline-flex;
+            font-size: 1.35rem;
+            height: 64px;
+            justify-content: center;
+            width: 64px;
+        }
+
+        .advisor-mini h3 {
+            font-size: 1.2rem;
+        }
+
+        .advisor-mini span {
+            color: rgba(255, 255, 255, 0.68);
+            display: block;
             font-size: 0.9rem;
         }
 
-        /* Features Grid */
-        .features-grid {
+        .contact-methods {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
-        .feature-card {
-            background: var(--card-bg);
-            padding: 3.5rem;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        .feature-card:hover { 
-            transform: translateY(-10px); 
-            border-color: var(--secondary);
-            background: rgba(255,255,255,0.06);
-        }
-        .feature-card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 1.5rem; }
-        .feature-card h3 { font-size: 1.6rem; margin-bottom: 1rem; }
-        .feature-card ul { list-style: none; color: #aaa; font-size: 0.95rem; }
-        .feature-card ul li { margin-bottom: 0.5rem; display: flex; align-items: center; }
-        .feature-card ul li::before { content: "→"; color: var(--secondary); margin-right: 10px; }
-
-        /* FAQ Section */
-        .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-item { 
-            background: var(--glass); 
-            margin-bottom: 1rem; 
-            border-radius: 12px; 
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .faq-question {
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
+        .contact-method {
             align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .faq-answer {
-            padding: 0 2rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: 0.3s ease-out;
-            color: #888;
-        }
-        .faq-item.active .faq-answer { padding: 0 2rem 1.5rem 2rem; max-height: 200px; }
-
-        /* Contact & Map */
-        .contact-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
+            gap: 0.85rem;
+            grid-template-columns: 46px minmax(0, 1fr);
+            text-decoration: none;
         }
+
+        .contact-method i {
+            align-items: center;
+            background: var(--gold);
+            border-radius: 50%;
+            color: var(--ink);
+            display: inline-flex;
+            grid-row: 1 / span 2;
+            height: 46px;
+            justify-content: center;
+            width: 46px;
+        }
+
+        .contact-method span {
+            color: rgba(255, 255, 255, 0.68);
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 800;
+            grid-column: 2;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .contact-method strong {
+            color: var(--white);
+            display: block;
+            font-size: clamp(0.86rem, 2.4vw, 1rem);
+            grid-column: 2;
+            overflow: visible;
+            white-space: nowrap;
+            word-break: normal;
+        }
+
+        .contact-scoreboard {
+            display: grid;
+            gap: 0.7rem;
+            grid-template-columns: repeat(3, 1fr);
+            margin: 1rem 0;
+        }
+
+        .contact-score {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 0.85rem;
+        }
+
+        .contact-score strong,
+        .contact-score span {
+            display: block;
+        }
+
+        .contact-score strong {
+            color: var(--gold);
+            font-size: 1.28rem;
+            line-height: 1;
+        }
+
+        .contact-score span {
+            color: rgba(255, 255, 255, 0.66);
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .desk-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .desk-card h4 {
+            align-items: center;
+            display: flex;
+            gap: 0.55rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .desk-card h4 i {
+            color: var(--gold);
+        }
+
+        .desk-list {
+            display: grid;
+            gap: 0.55rem;
+            list-style: none;
+        }
+
+        .desk-list li {
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.74);
+            display: grid;
+            font-size: 0.92rem;
+            gap: 0.55rem;
+            grid-template-columns: 18px 1fr;
+        }
+
+        .desk-list li i {
+            color: var(--mint);
+            margin-top: 0.25rem;
+        }
+
+        .map-frame {
+            border: 0;
+            height: 280px;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
         .contact-form {
-            background: var(--glass);
-            padding: 3rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .input-box { 
-            width: 100%; 
-            margin-bottom: 1.5rem; 
-            position: relative;
-        }
-        .input-box input, .input-box select, .input-box textarea {
-            width: 100%; 
-            padding: 1.2rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white; 
-            border-radius: 12px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-        .input-box input:focus, .input-box select:focus, .input-box textarea:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
-            outline: none;
-        }
-        .input-box.error input, .input-box.error select, .input-box.error textarea {
-            border-color: var(--error);
-        }
-        .input-box.success input, .input-box.success select, .input-box.success textarea {
-            border-color: var(--success);
-        }
-        .error-message {
-            color: var(--error);
-            font-size: 0.8rem;
-            margin-top: 0.3rem;
-            display: none;
-        }
-        .input-box.error .error-message { display: block; }
-        .btn-submit {
-            width: 100%; 
-            padding: 1.2rem;
-            background: var(--secondary);
-            color: var(--bg-dark);
-            border: none; 
-            border-radius: 12px;
-            font-weight: 800; 
-            cursor: pointer;
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-submit::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .btn-submit:hover::before { left: 100%; }
-        .btn-submit:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.3);
-        }
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            display: grid;
+            gap: 1.1rem;
         }
 
-        .map-container {
-            height: 500px;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 5px solid var(--glass);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        footer {
-            padding: 80px 8% 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        .consultation-header {
+            align-items: start;
             display: flex;
+            gap: 1rem;
             justify-content: space-between;
-            align-items: center;
         }
 
-        @media (max-width: 992px) {
-            .contact-layout { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 3.5rem; }
-            .hero-stats { flex-wrap: wrap; }
+        .consultation-header h3 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.05;
+        }
+
+        .consultation-header p {
+            color: rgba(255, 255, 255, 0.68);
+            margin-top: 0.45rem;
+        }
+
+        .secure-pill {
+            align-items: center;
+            background: rgba(223, 246, 233, 0.12);
+            border: 1px solid rgba(223, 246, 233, 0.22);
+            border-radius: 999px;
+            color: var(--mint);
+            display: inline-flex;
+            flex: 0 0 auto;
+            font-size: 0.78rem;
+            font-weight: 900;
+            gap: 0.45rem;
+            padding: 0.55rem 0.8rem;
+        }
+
+        .form-progress {
+            display: grid;
+            gap: 0.65rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .progress-step {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            padding: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .progress-step span {
+            color: var(--gold);
+            display: block;
+            font-size: 1rem;
+            letter-spacing: 0;
+            margin-bottom: 0.1rem;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .contact-form .field-group input,
+        .contact-form .field-group select,
+        .contact-form .field-group textarea {
+            resize: vertical;
+        }
+
+        .field-error {
+            color: #ffd0c4;
+            display: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .field-group.has-error input,
+        .field-group.has-error select,
+        .field-group.has-error textarea {
+            border-color: #ffb2a5;
+        }
+
+        .field-group.has-error .field-error {
+            display: block;
+        }
+
+        .choice-chips,
+        .slot-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .chip-button,
+        .slot-button {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.86rem;
+            font-weight: 800;
+            min-height: 42px;
+            padding: 0.65rem 0.9rem;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .chip-button:hover,
+        .slot-button:hover,
+        .slot-button.active {
+            background: var(--gold);
+            color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .summary-panel {
+            background: rgba(8, 20, 15, 0.22);
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            padding: 1rem;
+        }
+
+        .summary-panel h4 {
+            align-items: center;
+            display: flex;
+            gap: 0.55rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-panel h4 i {
+            color: var(--gold);
+        }
+
+        .summary-grid {
+            display: grid;
+            gap: 0.7rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .summary-item span {
+            color: rgba(255, 255, 255, 0.56);
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .summary-item strong {
+            color: var(--white);
+            display: block;
+            font-size: 0.96rem;
+            margin-top: 0.16rem;
+        }
+
+        .consent-row {
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.72);
+            display: grid;
+            font-size: 0.88rem;
+            gap: 0.65rem;
+            grid-template-columns: 20px 1fr;
+        }
+
+        .consent-row input {
+            accent-color: var(--gold);
+            margin-top: 0.25rem;
+        }
+
+        .consent-row.has-error span {
+            color: #ffd0c4;
+        }
+
+        .submit-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .submit-row .primary-button,
+        .submit-row .secondary-button {
+            border: 0;
+        }
+
+        .form-success {
+            background: rgba(223, 246, 233, 0.14);
+            border: 1px solid rgba(223, 246, 233, 0.28);
+            color: var(--mint);
+            display: none;
+            padding: 0.85rem 1rem;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .floating-actions {
+            bottom: 24px;
+            display: grid;
+            gap: 0.65rem;
+            position: fixed;
+            right: 24px;
+            z-index: 1200;
+        }
+
+        .floating-actions a,
+        .floating-actions button {
+            align-items: center;
+            border: 0;
+            border-radius: 50%;
+            box-shadow: 0 16px 38px rgba(8, 20, 15, 0.24);
+            color: var(--white);
+            display: inline-flex;
+            height: 54px;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            width: 54px;
+        }
+
+        .whatsapp-float {
+            background: #25d366;
+            font-size: 1.55rem;
+        }
+
+        .back-to-top {
+            background: var(--forest);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .floating-actions a:hover,
+        .floating-actions button:hover {
+            transform: translateY(-3px);
+        }
+
+        .site-footer {
+            align-items: center;
+            background: var(--ink);
+            color: rgba(255, 255, 255, 0.72);
+            display: flex;
+            gap: 1.5rem;
+            justify-content: space-between;
+            padding: 2rem 7%;
+        }
+
+        .site-footer .brand-mark {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        .site-footer strong {
+            color: var(--white);
+        }
+
+        @media (max-width: 1080px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .product-grid,
+            .claim-grid,
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .journey-track {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 880px) {
+            section {
+                padding: 82px 5%;
+            }
+
+            .site-nav {
+                padding: 0 5%;
+            }
+
+            .nav-links {
+                align-content: start;
+                background: var(--paper);
+                border-left: 1px solid var(--line);
+                box-shadow: -18px 0 40px rgba(8, 20, 15, 0.1);
+                display: grid;
+                gap: 0;
+                height: 100vh;
+                padding: calc(var(--nav-height) + 1rem) 1.5rem 1.5rem;
+                position: fixed;
+                right: 0;
+                top: 0;
+                transform: translateX(100%);
+                transition: transform 0.25s ease;
+                width: min(310px, 86vw);
+                z-index: 998;
+            }
+
+            .nav-links.show {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                border-bottom: 1px solid var(--line);
+                padding: 1rem 0;
+            }
+
+            .nav-actions .primary-button {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+                position: relative;
+                z-index: 1001;
+            }
+
+            .section-heading,
+            .advisor-grid,
+            .quote-studio,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                position: static;
+            }
+
+            .consultation-header {
+                flex-direction: column;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                background-position: center;
+                min-height: 92vh;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .portrait-panel,
+            .portrait-panel img {
+                min-height: 440px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            :root {
+                --nav-height: 72px;
+            }
+
+            .brand-text span {
+                display: none;
+            }
+
+            .hero {
+                padding-bottom: 86px;
+                padding-top: calc(var(--nav-height) + 44px);
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem, 15vw, 4.7rem);
+            }
+
+            .hero-actions,
+            .faq-tools,
+            .form-row,
+            .result-grid,
+            .form-progress,
+            .summary-grid,
+            .contact-scoreboard {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                display: grid;
+            }
+
+            .primary-button,
+            .secondary-button,
+            .text-button {
+                width: 100%;
+            }
+
+            .trust-grid,
+            .product-grid,
+            .journey-track,
+            .claim-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-strip {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .quote-panel,
+            .quote-results {
+                padding: 1.2rem;
+            }
+
+            .site-footer {
+                align-items: flex-start;
+                flex-direction: column;
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .floating-actions {
+                bottom: 16px;
+                right: 16px;
+            }
         }
     </style>
 </head>
-<body>
 
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <h2>Yogesh.Insure</h2>
-            <p>Loading your protection...</p>
+<body>
+    <div class="loading-screen" id="loading-screen" aria-label="Loading">
+        <div class="loading-mark">
+            <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+            <strong>Yogesh Cheke</strong>
+            <span>Insurance Desk</span>
         </div>
     </div>
 
-    <canvas id="particle-canvas"></canvas>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="Yogesh Cheke home">
+            <span class="brand-mark">YC</span>
+            <span class="brand-text">
+                <strong>Yogesh Cheke</strong>
+                <span>LIC & Star Health Advisor</span>
+            </span>
+        </a>
 
-    <a href="https://wa.me/917506307514" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+        <div class="nav-links" id="nav-links">
+            <a href="#advisor">Advisor</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#journey">Journey</a>
+            <a href="#quote">Calculator</a>
+            <a href="#claims">Claims</a>
+            <a href="#faq">FAQ</a>
+        </div>
 
-    <button class="back-to-top" id="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <nav>
-        <div class="logo">Yogesh<span>.Insure</span></div>
-        <div class="nav-links">
-            <a href="#life">Life</a>
-            <a href="#health">Health</a>
-            <a href="#faq">Questions</a>
-            <a href="#contact">Contact</a>
+        <div class="nav-actions">
+            <a class="primary-button" href="#contact"><i class="fa-solid fa-calendar-check"></i> Consult</a>
+            <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <p style="color: var(--secondary); letter-spacing: 5px; font-weight: 700; margin-bottom: 1rem;">ESTD. 2026</p>
-            <h1>Protecting Your <span>Legacy</span> & Health.</h1>
-            <p style="font-size: 1.2rem; color: #888; max-width: 600px; margin-bottom: 2.5rem;">
-                Yogesh Bhagvat Cheke offers bespoke financial security through LIC India and Star Health Insurance. Real protection for real families.
-            </p>
-            <a href="#contact" class="cta-button">Get Free Consultation</a>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <h3>750+</h3>
-                    <p>Claims Assisted</p>
+    <main>
+        <section class="hero" id="home">
+            <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+            <div class="section-shell hero-content">
+                <div class="eyebrow"><i class="fa-solid fa-circle-check"></i> ESTD. 2026 | Mumbai, Maharashtra</div>
+                <h1>Yogesh Cheke <span>Insurance Desk</span></h1>
+                <p class="hero-lede">Personal guidance for LIC life insurance, Star Health coverage, family protection, claim support, and long-term financial security.</p>
+                <div class="hero-actions">
+                    <a class="primary-button" href="#quote"><i class="fa-solid fa-calculator"></i> Estimate Cover</a>
+                    <a class="secondary-button" href="https://wa.me/917506307514" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp Yogesh</a>
                 </div>
-                <div class="stat-item">
-                    <h3>100%</h3>
-                    <p>Dedicated Support</p>
-                </div>
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <p>Service Access</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="life">
-        <div class="section-header">
-            <h2>Life <i>Insurance</i></h2>
-            <p>Authorized LIC solutions for long-term wealth and family protection.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card reveal-up">
-                <i class="fas fa-shield-halved"></i>
-                <h3>Term Protection</h3>
-                <ul>
-                    <li>High Life Cover at Low Cost</li>
-                    <li>Financial Security for Dependents</li>
-                    <li>Death Benefit Payouts</li>
-                </ul>
-            </div>
-            <div class="feature-card reveal-up">
-                <i class="fas fa-piggy-bank"></i>
-                <h3>Endowment Plans</h3>
-                <ul>
-                    <li>Guaranteed Savings</li>
-                    <li>Maturity Bonus Benefits</li>
-                    <li>Loan Facilities Available</li>
-                </ul>
-            </div>
-            <div class="feature-card reveal-up">
-                <i class="fas fa-receipt"></i>
-                <h3>Tax Advantages</h3>
-                <ul>
-                    <li>Premium Deduction (80C)</li>
-                    <li>Tax-Free Maturity (10-10D)</li>
-                    <li>Wealth Optimization</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="health" style="background: rgba(39, 174, 96, 0.02);">
-        <div class="section-header">
-            <h2>Star <i>Health</i></h2>
-            <p>Comprehensive medical coverage for you and your family members.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card reveal-up">
-                <i class="fas fa-hospital-user"></i>
-                <h3>Cashless Hospital</h3>
-                <ul>
-                    <li>14,000+ Network Hospitals</li>
-                    <li>No Out-of-Pocket Stress</li>
-                    <li>Rapid Claim Approval</li>
-                </ul>
-            </div>
-            <div class="feature-card reveal-up">
-                <i class="fas fa-ambulance"></i>
-                <h3>Emergency Care</h3>
-                <ul>
-                    <li>Ambulance Cover Included</li>
-                    <li>Day Care Procedures</li>
-                    <li>Pre & Post Hospitalization</li>
-                </ul>
-            </div>
-            <div class="feature-card reveal-up">
-                <i class="fas fa-heart-pulse"></i>
-                <h3>Peace of Mind</h3>
-                <ul>
-                    <li>Lifetime Renewability</li>
-                    <li>Free Annual Health Checkups</li>
-                    <li>No Claim Bonus (NCB)</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <h2>What Our <i>Clients Say</i></h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card reveal-up">
-                <div class="quote">"</div>
-                <p>Yogesh helped me secure my family's future with the perfect LIC policy. His guidance during the claim process was invaluable.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">R</div>
-                    <div class="author-info">
-                        <h4>Rajesh Sharma</h4>
-                        <span>LIC Policy Holder</span>
+                <div class="hero-stats" aria-label="Service highlights">
+                    <div class="stat-card">
+                        <strong data-count="750" data-suffix="+">0</strong>
+                        <span>Claims Assisted</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong data-count="24" data-suffix="/7">0</strong>
+                        <span>Service Access</span>
+                    </div>
+                    <div class="stat-card">
+                        <strong data-count="100" data-suffix="%">0</strong>
+                        <span>Dedicated Support</span>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-card reveal-up">
-                <div class="quote">"</div>
-                <p>Star Health coverage through Yogesh saved us from a huge medical bill. Cashless hospitalization made everything stress-free.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">P</div>
-                    <div class="author-info">
-                        <h4>Priya Patel</h4>
-                        <span>Star Health Member</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card reveal-up">
-                <div class="quote">"</div>
-                <p>Professional, knowledgeable, and always available. Yogesh made insurance simple and effective for our business needs.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">A</div>
-                    <div class="author-info">
-                        <h4>Amit Kumar</h4>
-                        <span>Business Owner</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Insurance Calculator Section -->
-    <section class="calculator-section">
-        <div class="calculator-container">
-            <div>
-                <div class="section-header">
-                    <h2>Premium <i>Calculator</i></h2>
-                    <p>Get an instant estimate for your insurance premium based on your needs.</p>
+        <section class="trust-strip" aria-label="Trust highlights">
+            <div class="trust-grid reveal-up">
+                <div class="trust-item">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <strong>Licensed Advisory</strong>
+                    <span>IRDAI-aligned documentation and policy guidance.</span>
                 </div>
-                <div class="calculator-form">
-                    <div class="calc-input-group">
-                        <label for="coverage">Coverage Amount (₹)</label>
-                        <input type="number" id="coverage" placeholder="500000" min="100000" max="10000000">
-                    </div>
-                    <div class="calc-input-group">
-                        <label for="age">Your Age</label>
-                        <input type="number" id="age" placeholder="30" min="18" max="70">
-                    </div>
-                    <div class="calc-input-group">
-                        <label for="term">Policy Term (Years)</label>
-                        <input type="number" id="term" placeholder="20" min="5" max="40">
-                    </div>
-                    <div class="calc-input-group">
-                        <label for="type">Insurance Type</label>
-                        <select id="type">
-                            <option value="life">Life Insurance</option>
-                            <option value="health">Health Insurance</option>
-                        </select>
-                    </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-building-shield"></i>
+                    <strong>LIC India</strong>
+                    <span>Life cover, savings plans, pension, and child goals.</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-hospital"></i>
+                    <strong>Star Health</strong>
+                    <span>Medical cover with cashless hospital support.</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <strong>Claim Desk</strong>
+                    <span>Paperwork, nominee guidance, and follow-up.</span>
                 </div>
             </div>
-            <div class="calc-result" id="calc-result">
-                <h3>Estimated Monthly Premium</h3>
-                <div class="result-amount" id="result-amount">₹0</div>
-                <div class="result-period" id="result-period">Enter details to calculate</div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="faq">
-        <div class="section-header" style="text-align: center; margin: 0 auto 4rem;">
-            <h2>Common <i>Questions</i></h2>
-        </div>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">Why do I need both Life and Health insurance? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">Life insurance protects your family's future if you are gone, while health insurance protects your savings from being wiped out by hospital bills during your lifetime.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How can Yogesh help me with LIC claims? <i class="fas fa-chevron-down"></i></div>
-                <div class="faq-answer">As your dedicated advisor, Yogesh handles the paperwork, documentation, and coordination with LIC/Star Health to ensure your claims are processed smoothly.</div>
-            </div>
-        </div>
-    </section>
+        <section class="advisor-section" id="advisor">
+            <div class="section-shell advisor-grid">
+                <div class="portrait-panel reveal-up">
+                    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1100&q=80" alt="Insurance advisor reviewing protection documents with a client">
+                    <div class="portrait-badge">
+                        <strong>Protection first.</strong>
+                        <span>Advice shaped around family responsibilities, income, health needs, and future milestones.</span>
+                    </div>
+                </div>
 
-    <section id="contact">
-        <div class="contact-layout">
-            <div class="contact-details">
-                <div class="section-header">
-                    <h2>Connect with <i>Yogesh</i></h2>
-                    <p>Ready to secure your future? Fill out the form or visit the office.</p>
-                </div>
-                <div style="margin-bottom: 2rem;">
-                    <p><i class="fas fa-phone" style="color: var(--secondary); margin-right: 15px;"></i> +91 7506307514</p>
-                    <p><i class="fas fa-envelope" style="color: var(--secondary); margin-right: 15px;"></i> yogeshcheke0101@gmail.com</p>
-                </div>
-                <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.796123456789!2d72.8777!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
+                <div class="advisor-content reveal-up">
+                    <span class="section-kicker"><i class="fa-solid fa-user-tie"></i> Advisor Profile</span>
+                    <h2 class="section-title">Human advice before policy paperwork.</h2>
+                    <p class="section-copy">The process starts with your responsibilities: dependents, loans, health history, savings discipline, and future goals. Then the right LIC or Star Health solution is shortlisted with clear premium, benefit, and claim expectations.</p>
+
+                    <div class="advisor-points">
+                        <article class="advisor-point">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            <div>
+                                <h3>Need discovery</h3>
+                                <p>Understand income, existing policies, liabilities, medical needs, and nominee planning.</p>
+                            </div>
+                        </article>
+                        <article class="advisor-point">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <div>
+                                <h3>Plan comparison</h3>
+                                <p>Compare protection, savings, tax benefits, waiting periods, exclusions, and renewal conditions.</p>
+                            </div>
+                        </article>
+                        <article class="advisor-point">
+                            <i class="fa-solid fa-headset"></i>
+                            <div>
+                                <h3>After-sales support</h3>
+                                <p>Premium reminders, servicing requests, policy changes, hospital coordination, and claim help.</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
-            <form class="contact-form" id="contact-form">
-                <div class="input-box">
-                    <input type="text" id="name" placeholder="Your Name" required>
-                    <div class="error-message">Please enter your name</div>
-                </div>
-                <div class="input-box">
-                    <input type="email" id="email" placeholder="Email Address" required>
-                    <div class="error-message">Please enter a valid email address</div>
-                </div>
-                <div class="input-box">
-                    <select id="interest">
-                        <option>Interested in LIC Life Insurance</option>
-                        <option>Interested in Star Health Insurance</option>
-                        <option>General Financial Advice</option>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <textarea id="message" rows="6" placeholder="Tell us about your requirements..."></textarea>
-                    <div class="error-message">Please enter your message</div>
-                </div>
-                <button type="submit" class="btn-submit" id="submit-btn">Book Free Consultation</button>
-            </form>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="logo">Yogesh<span>.Insure</span></div>
-        <p>© 2026 Insurance Excellence. Licensed Advisor IRDAI.</p>
+        <section class="products-section" id="solutions">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-shield-heart"></i> Protection Solutions</span>
+                        <h2 class="section-title">Cover every important stage of life.</h2>
+                    </div>
+                    <p class="section-copy">A complete protection portfolio can combine pure life cover, goal-based savings, pension income, medical cover, and claim-ready documentation.</p>
+                </div>
+
+                <div class="product-grid">
+                    <article class="product-card reveal-up">
+                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="Professional family financial planning table">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <h3>LIC Life Protection</h3>
+                        <p>Life cover for income replacement, loans, family continuity, and nominee security.</p>
+                        <ul>
+                            <li>Term and whole-life options</li>
+                            <li>High cover for dependents</li>
+                            <li>Nominee-focused claim planning</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card reveal-up">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80" alt="Healthcare professional with patient report">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <h3>Star Health Cover</h3>
+                        <p>Medical insurance for families, senior citizens, maternity needs, and critical health events.</p>
+                        <ul>
+                            <li>Cashless hospital support</li>
+                            <li>Pre and post hospitalization</li>
+                            <li>Renewal and NCB guidance</li>
+                        </ul>
+                    </article>
+
+                    <article class="product-card reveal-up">
+                        <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=900&q=80" alt="Financial planning documents with calculator">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h3>Wealth & Tax Planning</h3>
+                        <p>Goal-backed savings through LIC products for education, retirement, and disciplined wealth creation.</p>
+                        <ul>
+                            <li>Section 80C planning</li>
+                            <li>Maturity and pension goals</li>
+                            <li>Policy loan awareness</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="journey-section" id="journey">
+            <div class="section-shell">
+                <span class="section-kicker"><i class="fa-solid fa-route"></i> Chronological Journey</span>
+                <h2 class="section-title">A clear sequence from first call to policy service.</h2>
+                <p class="section-copy">Every consultation follows a simple order, so the policy decision stays practical, transparent, and easy to revisit later.</p>
+
+                <div class="journey-track">
+                    <article class="journey-step reveal-up" data-step="01">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <h3>Intro Call</h3>
+                        <p>Discuss family size, age, income, existing cover, health profile, and immediate concerns.</p>
+                    </article>
+                    <article class="journey-step reveal-up" data-step="02">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <h3>Need Analysis</h3>
+                        <p>Calculate life cover, medical cover, budget comfort, tax goals, and nominee readiness.</p>
+                    </article>
+                    <article class="journey-step reveal-up" data-step="03">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <h3>Plan Shortlist</h3>
+                        <p>Compare benefits, premium frequency, exclusions, waiting periods, riders, and expected outcomes.</p>
+                    </article>
+                    <article class="journey-step reveal-up" data-step="04">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                        <h3>Issue & Service</h3>
+                        <p>Complete documentation, policy issuance, reminders, servicing, renewals, and claim assistance.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section" id="quote">
+            <div class="section-shell quote-studio reveal-up">
+                <div class="quote-panel">
+                    <span class="section-kicker"><i class="fa-solid fa-calculator"></i> Smart Estimate</span>
+                    <h2>Build a quick protection estimate.</h2>
+                    <p>The premium shown is an educational estimate. Final premium depends on product, underwriting, medical history, riders, GST, and insurer rules.</p>
+
+                    <form class="quote-form" id="quote-form">
+                        <div class="field-group">
+                            <label for="cover-type">Insurance category</label>
+                            <select id="cover-type">
+                                <option value="life">LIC Life Insurance</option>
+                                <option value="health">Star Health Insurance</option>
+                                <option value="combo">Life + Health Combo</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="coverage">Coverage amount: <span id="coverage-label">₹25,00,000</span></label>
+                            <div class="range-row">
+                                <input type="range" id="coverage" min="500000" max="10000000" step="50000" value="2500000">
+                                <input type="number" id="coverage-number" min="500000" max="10000000" step="50000" value="2500000" aria-label="Coverage amount">
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="18" max="70" value="32">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="term">Policy term in years</label>
+                            <input type="number" id="term" min="5" max="40" value="20">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="family-members">Members covered</label>
+                            <select id="family-members">
+                                <option value="1">Self</option>
+                                <option value="2">Self + Spouse</option>
+                                <option value="3">Family of 3</option>
+                                <option value="4" selected>Family of 4</option>
+                                <option value="5">Family of 5+</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="quote-results" aria-live="polite">
+                    <div class="result-hero">
+                        <span>Estimated Monthly Premium</span>
+                        <strong id="monthly-result">₹0</strong>
+                        <small id="result-note">Adjust details to refine your estimate.</small>
+                    </div>
+
+                    <div class="result-grid">
+                        <div class="mini-result">
+                            <span>Annual Premium</span>
+                            <strong id="annual-result">₹0</strong>
+                        </div>
+                        <div class="mini-result">
+                            <span>Suggested Emergency Fund</span>
+                            <strong id="emergency-result">₹0</strong>
+                        </div>
+                        <div class="mini-result">
+                            <span>Coverage Score</span>
+                            <strong id="score-result">0/100</strong>
+                        </div>
+                        <div class="mini-result">
+                            <span>Priority</span>
+                            <strong id="priority-result">Review</strong>
+                        </div>
+                    </div>
+
+                    <div class="recommendation">
+                        <h3><i class="fa-solid fa-lightbulb"></i> Recommendation</h3>
+                        <p id="recommendation-text">Start with enough life cover to protect dependents and enough health cover to avoid disturbing savings during hospitalization.</p>
+                    </div>
+
+                    <a class="text-button" id="quote-whatsapp" href="https://wa.me/917506307514" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Share Estimate on WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="comparison-section">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-table-list"></i> Plan Comparison</span>
+                        <h2 class="section-title">Know what each product is meant to do.</h2>
+                    </div>
+                    <p class="section-copy">The strongest portfolio usually separates protection, healthcare, savings, and retirement instead of expecting one plan to do everything.</p>
+                </div>
+
+                <div class="compare-table reveal-up">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Best For</th>
+                                <th>Key Benefit</th>
+                                <th>Watch Carefully</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Term Life</strong></td>
+                                <td>Income replacement and family security</td>
+                                <td>Large cover at practical premium</td>
+                                <td>Correct nominee, riders, and policy term</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Endowment</strong></td>
+                                <td>Disciplined savings with life cover</td>
+                                <td>Maturity value and long-term habit</td>
+                                <td>Liquidity, surrender terms, and returns</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Health Insurance</strong></td>
+                                <td>Hospitalization and medical cost risk</td>
+                                <td>Cashless care and savings protection</td>
+                                <td>Waiting periods, room limits, exclusions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pension Planning</strong></td>
+                                <td>Retirement income discipline</td>
+                                <td>Income planning after working years</td>
+                                <td>Vesting age, annuity options, taxation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="claims-section" id="claims">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-folder-open"></i> Claim Support</span>
+                        <h2 class="section-title">Prepared documents make stressful days easier.</h2>
+                    </div>
+                    <p class="section-copy">Claim support focuses on timely intimation, correct forms, hospital coordination, nominee paperwork, and follow-up until resolution.</p>
+                </div>
+
+                <div class="claim-grid">
+                    <article class="claim-card reveal-up">
+                        <i class="fa-solid fa-bell"></i>
+                        <h3>Claim Intimation</h3>
+                        <p>Guide the family on whom to notify, when to notify, and which policy details are required first.</p>
+                    </article>
+                    <article class="claim-card reveal-up">
+                        <i class="fa-solid fa-file-medical"></i>
+                        <h3>Document Checklist</h3>
+                        <p>Organize policy bond, KYC, hospital papers, discharge summary, bills, and nominee documents.</p>
+                    </article>
+                    <article class="claim-card reveal-up">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <h3>Status Follow-Up</h3>
+                        <p>Coordinate with insurer channels and help resolve missing document or clarification requests.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-comments"></i> Client Words</span>
+                        <h2 class="section-title">Insurance feels better when someone stays reachable.</h2>
+                    </div>
+                    <p class="section-copy">Families value simple explanations, prompt renewal help, and support during claim-related paperwork.</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <article class="testimonial-card reveal-up">
+                        <div class="stars" aria-label="Five star rating">★★★★★</div>
+                        <blockquote>Yogesh explained the LIC options clearly and helped us choose cover that matched our income and family responsibilities.</blockquote>
+                        <div class="person">
+                            <span class="avatar">R</span>
+                            <div>
+                                <strong>Rajesh Sharma</strong>
+                                <span>LIC Policy Holder</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card reveal-up">
+                        <div class="stars" aria-label="Five star rating">★★★★★</div>
+                        <blockquote>The health policy selection was practical. During hospitalization, the cashless process felt much less confusing.</blockquote>
+                        <div class="person">
+                            <span class="avatar">P</span>
+                            <div>
+                                <strong>Priya Patel</strong>
+                                <span>Star Health Member</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card reveal-up">
+                        <div class="stars" aria-label="Five star rating">★★★★★</div>
+                        <blockquote>He reviewed our old policies, found gaps, and built a better protection plan for our family and business needs.</blockquote>
+                        <div class="person">
+                            <span class="avatar">A</span>
+                            <div>
+                                <strong>Amit Kumar</strong>
+                                <span>Business Owner</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" id="faq">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-circle-question"></i> Common Questions</span>
+                        <h2 class="section-title">Clear answers before you commit.</h2>
+                    </div>
+                    <p class="section-copy">Filter the most common life, health, tax, and claim questions clients ask during their first consultation.</p>
+                </div>
+
+                <div class="faq-tools">
+                    <label class="faq-search" for="faq-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" id="faq-search" placeholder="Search questions">
+                    </label>
+                    <button class="text-button" id="expand-faqs" type="button"><i class="fa-solid fa-layer-group"></i> Expand All</button>
+                </div>
+
+                <div class="faq-list" id="faq-list">
+                    <article class="faq-item active" data-keywords="life health insurance both">
+                        <button class="faq-question" type="button">Why do I need both life and health insurance? <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer"><div><p>Life insurance protects your family after loss of income. Health insurance protects your savings while you are alive by reducing the financial shock of hospitalization.</p></div></div>
+                    </article>
+                    <article class="faq-item" data-keywords="lic claim nominee documents">
+                        <button class="faq-question" type="button">How does claim support work? <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer"><div><p>Yogesh helps with claim intimation, forms, document checks, nominee guidance, and insurer follow-up so the family does not handle the process alone.</p></div></div>
+                    </article>
+                    <article class="faq-item" data-keywords="premium calculator estimate final">
+                        <button class="faq-question" type="button">Is the calculator premium final? <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer"><div><p>No. It is only an educational estimate. Final premium depends on plan rules, medical underwriting, GST, age, riders, health history, and insurer approval.</p></div></div>
+                    </article>
+                    <article class="faq-item" data-keywords="tax 80c 10d benefits">
+                        <button class="faq-question" type="button">Can insurance help with tax planning? <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer"><div><p>Eligible premiums may support tax planning under applicable income tax rules. The exact benefit depends on the current law, selected product, and your tax profile.</p></div></div>
+                    </article>
+                    <article class="faq-item" data-keywords="old policy review">
+                        <button class="faq-question" type="button">Can existing policies be reviewed? <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="faq-answer"><div><p>Yes. Existing LIC and health policies can be reviewed for cover adequacy, nominee details, renewal status, premium comfort, and gaps in family protection.</p></div></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker"><i class="fa-solid fa-paper-plane"></i> Contact</span>
+                        <h2 class="section-title">Book a focused insurance review.</h2>
+                    </div>
+                    <p class="section-copy">Share a few details and Yogesh will help you shortlist the right protection path for your family, health needs, and long-term goals.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <aside class="contact-card reveal-up">
+                        <div class="advisor-mini">
+                            <span class="advisor-avatar"><i class="fa-solid fa-user-tie"></i></span>
+                            <div>
+                                <h3>Yogesh Bhagvat Cheke</h3>
+                                <span>LIC India and Star Health insurance advisory support</span>
+                            </div>
+                        </div>
+                        <p class="section-copy">A focused desk for policy selection, renewal guidance, nominee review, hospital support, and claim paperwork coordination.</p>
+
+                        <div class="contact-scoreboard" aria-label="Contact highlights">
+                            <div class="contact-score">
+                                <strong>15m</strong>
+                                <span>Quick Review</span>
+                            </div>
+                            <div class="contact-score">
+                                <strong>3</strong>
+                                <span>Reply Modes</span>
+                            </div>
+                            <div class="contact-score">
+                                <strong>24/7</strong>
+                                <span>WhatsApp</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-methods">
+                            <a class="contact-method" href="tel:+917506307514">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>Phone</span>
+                                <strong>+91 7506307514</strong>
+                            </a>
+                            <a class="contact-method" href="mailto:yogeshcheke0101@gmail.com">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>Email</span>
+                                <strong>yogeshcheke0101@gmail.com</strong>
+                            </a>
+                            <a class="contact-method" href="https://wa.me/917506307514" target="_blank" rel="noopener">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                                <strong>Send policy details</strong>
+                            </a>
+                        </div>
+
+                        <div class="desk-card">
+                            <h4><i class="fa-solid fa-clock"></i> Preferred Windows</h4>
+                            <ul class="desk-list">
+                                <li><i class="fa-solid fa-check"></i><span>Morning: policy reviews and new cover planning.</span></li>
+                                <li><i class="fa-solid fa-check"></i><span>Afternoon: renewals, servicing, and document checks.</span></li>
+                                <li><i class="fa-solid fa-check"></i><span>Evening: family discussions and claim guidance.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="desk-card">
+                            <h4><i class="fa-solid fa-folder-tree"></i> Useful Documents</h4>
+                            <ul class="desk-list">
+                                <li><i class="fa-solid fa-file"></i><span>Existing policy copy or renewal notice.</span></li>
+                                <li><i class="fa-solid fa-id-card"></i><span>Age, nominee, income, and family member details.</span></li>
+                                <li><i class="fa-solid fa-notes-medical"></i><span>Recent medical history for health cover review.</span></li>
+                            </ul>
+                        </div>
+
+                        <iframe class="map-frame" title="Mumbai, Maharashtra map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.796123456789!2d72.8777!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" loading="lazy" allowfullscreen></iframe>
+                    </aside>
+
+                    <form class="contact-form reveal-up" id="contact-form" novalidate>
+                        <div class="consultation-header">
+                            <div>
+                                <h3>Consultation Studio</h3>
+                                <p>Create a clean brief for Yogesh with your goal, priority, time slot, and preferred reply channel.</p>
+                            </div>
+                            <span class="secure-pill"><i class="fa-solid fa-lock"></i> Private Request</span>
+                        </div>
+
+                        <div class="form-progress" aria-label="Request sequence">
+                            <div class="progress-step"><span>01</span>Identity</div>
+                            <div class="progress-step"><span>02</span>Need</div>
+                            <div class="progress-step"><span>03</span>Slot</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" autocomplete="name" required>
+                                <span class="field-error">Please enter your name.</span>
+                            </div>
+                            <div class="field-group">
+                                <label for="phone">Mobile number</label>
+                                <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+                                <span class="field-error">Please enter a valid mobile number.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" autocomplete="email" required>
+                                <span class="field-error">Please enter a valid email address.</span>
+                            </div>
+                            <div class="field-group">
+                                <label for="reply-mode">Preferred reply</label>
+                                <select id="reply-mode" name="reply-mode">
+                                    <option>WhatsApp</option>
+                                    <option>Phone Call</option>
+                                    <option>Email</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="interest">Primary interest</label>
+                                <select id="interest" name="interest">
+                                    <option>LIC Life Insurance</option>
+                                    <option>Star Health Insurance</option>
+                                    <option>Family Protection Review</option>
+                                    <option>Policy Claim Support</option>
+                                    <option>Tax & Savings Planning</option>
+                                </select>
+                            </div>
+                            <div class="field-group">
+                                <label for="customer-type">I am planning for</label>
+                                <select id="customer-type" name="customer-type">
+                                    <option>Myself</option>
+                                    <option>Spouse and children</option>
+                                    <option>Parents</option>
+                                    <option>Business or staff</option>
+                                    <option>Existing policy review</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="budget">Comfortable monthly budget</label>
+                                <select id="budget" name="budget">
+                                    <option>Not decided</option>
+                                    <option>Under ₹2,000</option>
+                                    <option>₹2,000 - ₹5,000</option>
+                                    <option>₹5,000 - ₹10,000</option>
+                                    <option>Above ₹10,000</option>
+                                </select>
+                            </div>
+                            <div class="field-group">
+                                <label for="urgency">Priority</label>
+                                <select id="urgency" name="urgency">
+                                    <option>Normal planning</option>
+                                    <option>Need this week</option>
+                                    <option>Renewal due soon</option>
+                                    <option>Claim help needed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label>Quick topics</label>
+                            <div class="choice-chips" id="contact-chips">
+                                <button class="chip-button" type="button" data-topic="I want to calculate the right life cover for my family.">Life cover amount</button>
+                                <button class="chip-button" type="button" data-topic="I want to compare Star Health plans and hospital network support.">Health plan comparison</button>
+                                <button class="chip-button" type="button" data-topic="I want to review my existing LIC or health policy.">Policy review</button>
+                                <button class="chip-button" type="button" data-topic="I need help understanding claim documents and next steps.">Claim documents</button>
+                                <button class="chip-button" type="button" data-topic="I want tax-saving and long-term savings guidance.">Tax and savings</button>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label>Preferred slot</label>
+                            <div class="slot-grid" id="slot-grid">
+                                <button class="slot-button active" type="button" data-slot="Morning">Morning</button>
+                                <button class="slot-button" type="button" data-slot="Afternoon">Afternoon</button>
+                                <button class="slot-button" type="button" data-slot="Evening">Evening</button>
+                                <button class="slot-button" type="button" data-slot="Any time">Any time</button>
+                            </div>
+                            <input type="hidden" id="preferred-time" name="preferred-time" value="Morning">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="message">Requirement</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Example: I need life cover for family, health cover for parents, and help comparing monthly premium options."></textarea>
+                            <span class="field-error">Please add a short requirement.</span>
+                        </div>
+
+                        <div class="summary-panel" aria-live="polite">
+                            <h4><i class="fa-solid fa-clipboard-check"></i> Request Summary</h4>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <span>Topic</span>
+                                    <strong id="summary-interest">LIC Life Insurance</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Reply</span>
+                                    <strong id="summary-reply">WhatsApp</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Slot</span>
+                                    <strong id="summary-slot">Morning</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Priority</span>
+                                    <strong id="summary-urgency">Normal planning</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="consent-row">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <span>I agree to be contacted by Yogesh Cheke for insurance consultation, policy servicing, and claim support related to this request.</span>
+                        </label>
+
+                        <div class="submit-row">
+                            <button class="primary-button" type="submit"><i class="fa-brands fa-whatsapp"></i> Send Details to Yogesh</button>
+                            <button class="secondary-button" type="button" id="copy-request"><i class="fa-solid fa-copy"></i> Copy WhatsApp Text</button>
+                        </div>
+                        <div class="form-success" id="form-success">Your WhatsApp message is ready.</div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-actions" aria-label="Quick actions">
+        <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <a class="whatsapp-float" href="https://wa.me/917506307514" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <a class="brand" href="#home" aria-label="Yogesh Cheke home">
+            <span class="brand-mark">YC</span>
+            <span class="brand-text">
+                <strong>Yogesh Cheke</strong>
+                <span>Insurance Desk</span>
+            </span>
+        </a>
+        <p>© 2026 Yogesh Bhagvat Cheke. LIC India and Star Health advisory support.</p>
     </footer>
 
     <script>
-        // Loading Screen
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loading-screen').style.display = 'none';
-                }, 500);
-            }, 2000);
+        const formatINR = (value) => new Intl.NumberFormat("en-IN", {
+            maximumFractionDigits: 0,
+            style: "currency",
+            currency: "INR"
+        }).format(Math.max(0, Math.round(value)));
+
+        const qs = (selector, scope = document) => scope.querySelector(selector);
+        const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+        const loadingScreen = qs("#loading-screen");
+        window.addEventListener("load", () => {
+            window.setTimeout(() => loadingScreen.classList.add("is-hidden"), 650);
         });
 
-        // Particle System
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particlesArray = [];
+        const nav = qs("#site-nav");
+        const navLinks = qs("#nav-links");
+        const menuToggle = qs("#menu-toggle");
+        const backToTop = qs("#back-to-top");
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("show");
+            document.body.classList.toggle("nav-open", isOpen);
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+        });
+
+        qsa(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("show");
+                document.body.classList.remove("nav-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            });
+        });
+
+        const sectionIds = qsa("main section[id]").map((section) => section.id);
+
+        function handleScroll() {
+            nav.classList.toggle("scrolled", window.scrollY > 40);
+            backToTop.classList.toggle("show", window.scrollY > 520);
+
+            let current = sectionIds[0];
+            sectionIds.forEach((id) => {
+                const section = document.getElementById(id);
+                if (section.offsetTop - 130 <= window.scrollY) current = id;
+            });
+
+            qsa(".nav-links a").forEach((link) => {
+                link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+            });
+        }
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        handleScroll();
+
+        const canvas = qs("#hero-canvas");
+        const ctx = canvas.getContext("2d");
+        let particles = [];
+
         class Particle {
             constructor() {
+                this.reset();
+            }
+
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.5;
+                this.size = Math.random() * 2.4 + 0.8;
+                this.speed = Math.random() * 0.35 + 0.12;
+                this.drift = Math.random() * 0.3 - 0.15;
+                this.opacity = Math.random() * 0.55 + 0.18;
             }
+
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                this.y -= this.speed;
+                this.x += this.drift;
+                if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) this.reset();
             }
+
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = 'rgba(255, 204, 0, 0.4)';
+                ctx.fillStyle = "#d8a833";
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.globalAlpha = 1;
             }
         }
-        function init() { 
-            particlesArray = [];
-            for (let i = 0; i < 80; i++) { 
-                particlesArray.push(new Particle()); 
-            } 
-        }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
-        init(); 
-        animate();
 
-        // Resize Canvas
-        window.addEventListener('resize', () => {
+        function sizeCanvas() {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-
-        // Navigation Scroll Effect
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // FAQ Toggle with Animation
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                const isActive = parent.classList.contains('active');
-                
-                // Close all FAQs
-                document.querySelectorAll('.faq-item').forEach(faq => {
-                    faq.classList.remove('active');
-                });
-                
-                // Open clicked FAQ if it wasn't active
-                if (!isActive) {
-                    parent.classList.add('active');
-                }
-            });
-        });
-
-        // Insurance Calculator
-        function calculatePremium() {
-            const coverage = parseFloat(document.getElementById('coverage').value) || 0;
-            const age = parseFloat(document.getElementById('age').value) || 0;
-            const term = parseFloat(document.getElementById('term').value) || 0;
-            const type = document.getElementById('type').value;
-            
-            if (coverage && age && term) {
-                let premium = 0;
-                
-                if (type === 'life') {
-                    // Simplified life insurance calculation
-                    const baseRate = 0.0005; // 0.05% of coverage per year
-                    const ageMultiplier = 1 + (age - 30) * 0.02; // Age adjustment
-                    const termMultiplier = 1 + (term - 20) * 0.01; // Term adjustment
-                    
-                    const annualPremium = coverage * baseRate * ageMultiplier * termMultiplier;
-                    premium = annualPremium / 12;
-                } else {
-                    // Simplified health insurance calculation
-                    const baseRate = 0.0003; // 0.03% of coverage per year
-                    const ageMultiplier = 1 + (age - 30) * 0.015;
-                    
-                    const annualPremium = coverage * baseRate * ageMultiplier;
-                    premium = annualPremium / 12;
-                }
-                
-                document.getElementById('result-amount').textContent = `₹${Math.round(premium).toLocaleString()}`;
-                document.getElementById('result-period').textContent = 'per month';
-            } else {
-                document.getElementById('result-amount').textContent = '₹0';
-                document.getElementById('result-period').textContent = 'Enter details to calculate';
-            }
+            canvas.height = qs(".hero").offsetHeight;
+            particles = Array.from({ length: Math.min(90, Math.floor(window.innerWidth / 18)) }, () => new Particle());
         }
 
-        // Calculator Event Listeners
-        ['coverage', 'age', 'term', 'type'].forEach(id => {
-            document.getElementById(id).addEventListener('input', calculatePremium);
-        });
-
-        // Form Validation
-        const contactForm = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-
-        function validateField(field, rules) {
-            const value = field.value.trim();
-            const inputBox = field.parentElement;
-            const errorMsg = inputBox.querySelector('.error-message');
-            
-            let isValid = true;
-            let message = '';
-            
-            if (rules.required && !value) {
-                isValid = false;
-                message = rules.requiredMsg || 'This field is required';
-            } else if (rules.pattern && !rules.pattern.test(value)) {
-                isValid = false;
-                message = rules.errorMsg || 'Invalid format';
-            }
-            
-            if (isValid) {
-                inputBox.classList.remove('error');
-                inputBox.classList.add('success');
-            } else {
-                inputBox.classList.remove('success');
-                inputBox.classList.add('error');
-                errorMsg.textContent = message;
-            }
-            
-            return isValid;
-        }
-
-        function validateForm() {
-            const fields = [
-                { 
-                    element: document.getElementById('name'), 
-                    rules: { required: true, requiredMsg: 'Please enter your name' } 
-                },
-                { 
-                    element: document.getElementById('email'), 
-                    rules: { 
-                        required: true, 
-                        pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        requiredMsg: 'Please enter your email',
-                        errorMsg: 'Please enter a valid email address'
-                    } 
-                },
-                { 
-                    element: document.getElementById('message'), 
-                    rules: { required: true, requiredMsg: 'Please enter your message' } 
-                }
-            ];
-            
-            let isFormValid = true;
-            fields.forEach(field => {
-                if (!validateField(field.element, field.rules)) {
-                    isFormValid = false;
-                }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle) => {
+                particle.update();
+                particle.draw();
             });
-            
-            submitBtn.disabled = !isFormValid;
-            return isFormValid;
+            requestAnimationFrame(animateCanvas);
         }
 
-        // Form Event Listeners
-        ['name', 'email', 'message'].forEach(id => {
-            const field = document.getElementById(id);
-            field.addEventListener('input', validateForm);
-            field.addEventListener('blur', validateForm);
-        });
+        sizeCanvas();
+        animateCanvas();
+        window.addEventListener("resize", sizeCanvas);
 
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (validateForm()) {
-                // Simulate form submission
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                
-                setTimeout(() => {
-                    alert('Thank you for your message! We will get back to you within 24 hours.');
-                    contactForm.reset();
-                    submitBtn.textContent = 'Book Free Consultation';
-                    submitBtn.disabled = false;
-                    
-                    // Reset validation states
-                    document.querySelectorAll('.input-box').forEach(box => {
-                        box.classList.remove('success', 'error');
-                    });
-                }, 2000);
-            }
-        });
+        const counters = qsa("[data-count]");
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting || entry.target.dataset.done) return;
 
-        // Animations
-        ScrollReveal().reveal('.reveal-up', {
-            distance: '60px',
-            duration: 1000,
-            delay: 200,
-            origin: 'bottom',
-            interval: 200
-        });
-        ScrollReveal().reveal('.hero-content', { delay: 300, origin: 'left', distance: '100px' });
-        ScrollReveal().reveal('.calculator-container > div:first-child', { delay: 200, origin: 'left', distance: '100px' });
-        ScrollReveal().reveal('.calc-result', { delay: 400, origin: 'right', distance: '100px' });
-        ScrollReveal().reveal('.testimonial-card', { 
-            distance: '50px',
-            duration: 800,
-            delay: 100,
-            origin: 'bottom',
-            interval: 150
-        });
+                const target = Number(entry.target.dataset.count);
+                const suffix = entry.target.dataset.suffix || "";
+                const duration = 1200;
+                const start = performance.now();
 
-        // Intersection Observer for enhanced animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+                function step(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    entry.target.textContent = `${Math.round(target * eased)}${suffix}`;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+
+                entry.target.dataset.done = "true";
+                requestAnimationFrame(step);
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach((counter) => counterObserver.observe(counter));
+
+        if (window.ScrollReveal) {
+            ScrollReveal().reveal(".reveal-up", {
+                distance: "42px",
+                duration: 850,
+                interval: 90,
+                origin: "bottom",
+                easing: "cubic-bezier(.2,.8,.2,1)"
+            });
+        }
+
+        const quoteFields = {
+            type: qs("#cover-type"),
+            coverage: qs("#coverage"),
+            coverageNumber: qs("#coverage-number"),
+            coverageLabel: qs("#coverage-label"),
+            age: qs("#age"),
+            term: qs("#term"),
+            members: qs("#family-members"),
+            monthly: qs("#monthly-result"),
+            annual: qs("#annual-result"),
+            emergency: qs("#emergency-result"),
+            score: qs("#score-result"),
+            priority: qs("#priority-result"),
+            note: qs("#result-note"),
+            recommendation: qs("#recommendation-text"),
+            whatsapp: qs("#quote-whatsapp")
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        function syncCoverage(source) {
+            const value = Math.min(10000000, Math.max(500000, Number(source.value) || 500000));
+            quoteFields.coverage.value = value;
+            quoteFields.coverageNumber.value = value;
+            quoteFields.coverageLabel.textContent = formatINR(value);
+        }
 
-        // Observe stat items for counter animation
-        document.querySelectorAll('.stat-item').forEach(item => {
-            observer.observe(item);
+        function calculateQuote() {
+            const type = quoteFields.type.value;
+            const coverage = Number(quoteFields.coverage.value);
+            const age = Math.min(70, Math.max(18, Number(quoteFields.age.value) || 18));
+            const term = Math.min(40, Math.max(5, Number(quoteFields.term.value) || 5));
+            const members = Number(quoteFields.members.value);
+
+            const ageFactor = 1 + Math.max(0, age - 30) * 0.018;
+            const termFactor = 1 + Math.max(0, term - 20) * 0.008;
+            const memberFactor = 1 + Math.max(0, members - 1) * 0.22;
+
+            let annualLife = 0;
+            let annualHealth = 0;
+
+            if (type === "life" || type === "combo") {
+                annualLife = coverage * 0.00062 * ageFactor * termFactor;
+            }
+
+            if (type === "health" || type === "combo") {
+                annualHealth = coverage * 0.00042 * ageFactor * memberFactor;
+            }
+
+            const annualPremium = annualLife + annualHealth;
+            const monthlyPremium = annualPremium / 12;
+            const emergencyFund = monthlyPremium * 12 + coverage * (type === "health" ? 0.015 : 0.006);
+            const score = Math.min(100, Math.round((coverage / 7500000) * 55 + (term / 40) * 20 + (members >= 3 ? 15 : 9) + (type === "combo" ? 10 : 4)));
+            const priority = score >= 76 ? "Strong" : score >= 52 ? "Balanced" : "Improve";
+
+            quoteFields.monthly.textContent = formatINR(monthlyPremium);
+            quoteFields.annual.textContent = formatINR(annualPremium);
+            quoteFields.emergency.textContent = formatINR(emergencyFund);
+            quoteFields.score.textContent = `${score}/100`;
+            quoteFields.priority.textContent = priority;
+            quoteFields.note.textContent = `${type === "combo" ? "Combined" : type === "life" ? "Life" : "Health"} estimate for ${members} member${members > 1 ? "s" : ""}, age ${age}.`;
+
+            if (type === "life") {
+                quoteFields.recommendation.textContent = "Review whether the cover can replace income, close loans, and fund key family goals for at least 10 to 15 years.";
+            } else if (type === "health") {
+                quoteFields.recommendation.textContent = "Check room rent limits, waiting periods, co-pay conditions, disease-wise limits, and nearby cashless hospitals before choosing.";
+            } else {
+                quoteFields.recommendation.textContent = "A combined plan can protect income and medical savings together. Keep life cover and health cover reviewed separately each year.";
+            }
+
+            const message = encodeURIComponent(`Hello Yogesh, I used the website calculator. Category: ${quoteFields.type.options[quoteFields.type.selectedIndex].text}. Coverage: ${formatINR(coverage)}. Age: ${age}. Term: ${term} years. Members: ${members}. Estimated monthly premium: ${formatINR(monthlyPremium)}. Please guide me.`);
+            quoteFields.whatsapp.href = `https://wa.me/917506307514?text=${message}`;
+        }
+
+        quoteFields.coverage.addEventListener("input", () => {
+            syncCoverage(quoteFields.coverage);
+            calculateQuote();
         });
+
+        quoteFields.coverageNumber.addEventListener("input", () => {
+            syncCoverage(quoteFields.coverageNumber);
+            calculateQuote();
+        });
+
+        [quoteFields.type, quoteFields.age, quoteFields.term, quoteFields.members].forEach((field) => {
+            field.addEventListener("input", calculateQuote);
+            field.addEventListener("change", calculateQuote);
+        });
+
+        syncCoverage(quoteFields.coverage);
+        calculateQuote();
+
+        const faqItems = qsa(".faq-item");
+        const faqSearch = qs("#faq-search");
+        const expandFaqs = qs("#expand-faqs");
+
+        faqItems.forEach((item) => {
+            qs(".faq-question", item).addEventListener("click", () => {
+                item.classList.toggle("active");
+            });
+        });
+
+        faqSearch.addEventListener("input", () => {
+            const query = faqSearch.value.trim().toLowerCase();
+            faqItems.forEach((item) => {
+                const question = qs(".faq-question", item).textContent.toLowerCase();
+                const keywords = item.dataset.keywords || "";
+                item.hidden = query && !question.includes(query) && !keywords.includes(query);
+            });
+        });
+
+        expandFaqs.addEventListener("click", () => {
+            const visibleItems = faqItems.filter((item) => !item.hidden);
+            const shouldExpand = visibleItems.some((item) => !item.classList.contains("active"));
+            visibleItems.forEach((item) => item.classList.toggle("active", shouldExpand));
+            expandFaqs.innerHTML = shouldExpand ? '<i class="fa-solid fa-compress"></i> Collapse All' : '<i class="fa-solid fa-layer-group"></i> Expand All';
+        });
+
+        const contactForm = qs("#contact-form");
+        const formSuccess = qs("#form-success");
+        const copyRequest = qs("#copy-request");
+        const yogeshWhatsAppNumber = "917506307514";
+        const contactSummary = {
+            interest: qs("#summary-interest"),
+            reply: qs("#summary-reply"),
+            slot: qs("#summary-slot"),
+            urgency: qs("#summary-urgency")
+        };
+
+        function validateContactField(field) {
+            const group = field.closest(".field-group");
+
+            if (field.type === "checkbox") {
+                field.closest(".consent-row").classList.toggle("has-error", !field.checked);
+                return field.checked;
+            }
+
+            if (!group || field.type === "hidden") return true;
+
+            let valid = true;
+            const value = field.value.trim();
+
+            if (field.hasAttribute("required") && !value) valid = false;
+            if (field.type === "email" && value) valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            if (field.type === "tel" && value) valid = /^[0-9+\-\s]{8,16}$/.test(value);
+
+            group.classList.toggle("has-error", !valid);
+            return valid;
+        }
+
+        function updateContactSummary() {
+            const formData = new FormData(contactForm);
+            contactSummary.interest.textContent = formData.get("interest") || "LIC Life Insurance";
+            contactSummary.reply.textContent = formData.get("reply-mode") || "WhatsApp";
+            contactSummary.slot.textContent = formData.get("preferred-time") || "Morning";
+            contactSummary.urgency.textContent = formData.get("urgency") || "Normal planning";
+        }
+
+        function buildContactMessage() {
+            const formData = new FormData(contactForm);
+            return [
+                "Hello Yogesh, I have filled the website consultation form.",
+                "",
+                `Name: ${formData.get("name")}`,
+                `Mobile: ${formData.get("phone")}`,
+                `Email: ${formData.get("email")}`,
+                `Preferred Reply: ${formData.get("reply-mode")}`,
+                `Interest: ${formData.get("interest")}`,
+                `Planning For: ${formData.get("customer-type")}`,
+                `Budget: ${formData.get("budget")}`,
+                `Priority: ${formData.get("urgency")}`,
+                `Preferred Slot: ${formData.get("preferred-time")}`,
+                `Requirement: ${formData.get("message")}`
+            ].join("\n");
+        }
+
+        function buildWhatsAppUrl() {
+            return `https://wa.me/${yogeshWhatsAppNumber}?text=${encodeURIComponent(buildContactMessage())}`;
+        }
+
+        function validateContactForm() {
+            const results = qsa("input, textarea, select", contactForm).map(validateContactField);
+            return results.every(Boolean);
+        }
+
+        qsa("input, textarea, select", contactForm).forEach((field) => {
+            field.addEventListener("blur", () => validateContactField(field));
+            field.addEventListener("input", () => {
+                validateContactField(field);
+                updateContactSummary();
+            });
+            field.addEventListener("change", updateContactSummary);
+        });
+
+        qsa(".chip-button", contactForm).forEach((chip) => {
+            chip.addEventListener("click", () => {
+                const message = qs("#message");
+                const topic = chip.dataset.topic;
+                message.value = message.value.trim() ? `${message.value.trim()}\n${topic}` : topic;
+                validateContactField(message);
+                message.focus();
+            });
+        });
+
+        qsa(".slot-button", contactForm).forEach((button) => {
+            button.addEventListener("click", () => {
+                qsa(".slot-button", contactForm).forEach((slot) => slot.classList.remove("active"));
+                button.classList.add("active");
+                qs("#preferred-time").value = button.dataset.slot;
+                updateContactSummary();
+            });
+        });
+
+        function resetContactForm() {
+            contactForm.reset();
+            qsa(".slot-button", contactForm).forEach((slot) => slot.classList.toggle("active", slot.dataset.slot === "Morning"));
+            qs("#preferred-time").value = "Morning";
+            updateContactSummary();
+        }
+
+        contactForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (!validateContactForm()) return;
+
+            const whatsappUrl = buildWhatsAppUrl();
+            formSuccess.textContent = "Opening WhatsApp with your filled details for Yogesh.";
+            formSuccess.classList.add("show");
+            const whatsappWindow = window.open(whatsappUrl, "_blank");
+            if (whatsappWindow) {
+                whatsappWindow.opener = null;
+                window.setTimeout(resetContactForm, 900);
+            } else {
+                window.location.href = whatsappUrl;
+            }
+        });
+
+        copyRequest.addEventListener("click", async () => {
+            if (!validateContactForm()) return;
+
+            try {
+                await navigator.clipboard.writeText(buildContactMessage());
+                formSuccess.textContent = "WhatsApp message text copied. Paste it in Yogesh's WhatsApp chat.";
+                formSuccess.classList.add("show");
+            } catch (error) {
+                formSuccess.textContent = "Copy is blocked in this browser. Use Send Details to Yogesh.";
+                formSuccess.classList.add("show");
+            }
+        });
+
+        updateContactSummary();
     </script>
 </body>
 </html>
